@@ -3,16 +3,7 @@ using System.ComponentModel;
 
 namespace RobotCleaner
 {
-    public interface IRobot
-    {
-        int X { get; }
-        int Y { get; }
-        void MoveTo(int x, int y);
-        void Move(CardinalDirection direction);
-        void Move(CardinalDirection direction, int distance);
-    }
-
-    public class Robot : IRobot
+    public class Robot
     {
         public Robot(IOffice office)
         {
