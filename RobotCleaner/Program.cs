@@ -18,22 +18,32 @@ namespace RobotCleaner
 
             var numberOfCommands = int.Parse(input.ReadLine());
 
-            var initialPosition = Regex.Split(input.ReadLine(), @"\s+");
-            var initialX = int.Parse(initialPosition[0]);
-            var initialY = int.Parse(initialPosition[1]);
-
-            robot.MoveTo(initialX, initialY);
+            var (x, y) = readInitialPosition(input);
+            robot.MoveTo(x, y);
 
             for (var i = 0; i < numberOfCommands; i++)
             {
-                var command = Regex.Split(input.ReadLine(), @"\s+");
-                var direction = Enum.Parse<CardinalDirection>(command[0]);
-                var distance = int.Parse(command[1]);
-
+                var (direction, distance) = readCommand(input);
                 robot.Move(direction, distance);
             }
 
             output.WriteLine($"=> Cleaned: {office.VisitedLocationsCount}");
+        }
+
+        private static (int x, int y) readInitialPosition(TextReader input)
+        {
+            var initialPosition = Regex.Split(input.ReadLine(), @"\s+");
+            var x = int.Parse(initialPosition[0]);
+            var y = int.Parse(initialPosition[1]);
+            return (x, y);
+        }
+
+        private static (CardinalDirection direction, int distance) readCommand(TextReader input)
+        {
+            var command = Regex.Split(input.ReadLine(), @"\s+");
+            var direction = Enum.Parse<CardinalDirection>(command[0]);
+            var distance = int.Parse(command[1]);
+            return (direction, distance);
         }
     }
 }
