@@ -17,6 +17,26 @@ namespace RobotCleaner.Specs
         private StringReader stringReader;
 
         [Test]
+        public void Program_NoCommands()
+        {
+            this.initializeInput("0\n" + "37 42\n");
+
+            var output = this.runAndGetOutput();
+
+            output.Should().Be("=> Cleaned: 1\r\n");
+        }
+
+        [Test]
+        public void Program_NoMovement()
+        {
+            this.initializeInput("4\n" + "-1 -1\n" + "E 0\n" + "N 0\n" + "W 0\n" + "S 0\n");
+
+            var output = this.runAndGetOutput();
+
+            output.Should().Be("=> Cleaned: 1\r\n");
+        }
+
+        [Test]
         public void Program_SmallCircle()
         {
             this.initializeInput("4\n" + "-1 -1\n" + "E 2\n" + "N 2\n" + "W 2\n" + "S 2\n");
