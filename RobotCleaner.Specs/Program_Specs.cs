@@ -14,15 +14,14 @@ namespace RobotCleaner.Specs
         }
 
         private StringWriter stringWriter;
+        private StringReader stringReader;
 
         [Test]
         public void Program_SmallCircle()
         {
-            var input = "4\n" + "-1 -1\n" + "E 2\n" + "N 2\n" + "W 2\n" + "S 2\n";
-            var stringReader = new StringReader(input);
+            this.initializeInput("4\n" + "-1 -1\n" + "E 2\n" + "N 2\n" + "W 2\n" + "S 2\n");
 
-            Program.Main(stringReader, this.stringWriter);
-            var output = this.stringWriter.GetStringBuilder().ToString();
+            var output = this.runAndGetOutput();
 
             output.Should().Be("=> Cleaned: 8\r\n");
         }
@@ -30,13 +29,22 @@ namespace RobotCleaner.Specs
         [Test]
         public void Program_ThereAndBackAgain()
         {
-            var input = "2\n" + "0 0\n" + "E 20\n" + "W 20\n";
-            var stringReader = new StringReader(input);
+            this.initializeInput("2\r\n" + "0 0\r\n" + "E 20\r\n" + "W 20\r\n");
 
-            Program.Main(stringReader, this.stringWriter);
-            var output = this.stringWriter.GetStringBuilder().ToString();
+            var output = this.runAndGetOutput();
 
             output.Should().Be("=> Cleaned: 21\r\n");
+        }
+
+        private void initializeInput(string input)
+        {
+            this.stringReader = new StringReader(input);
+        }
+
+        private string runAndGetOutput()
+        {
+            Program.Main(this.stringReader, this.stringWriter);
+            return this.stringWriter.GetStringBuilder().ToString();
         }
     }
 }
