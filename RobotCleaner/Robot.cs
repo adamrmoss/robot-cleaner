@@ -49,9 +49,6 @@ namespace RobotCleaner
                 case CardinalDirection.W:
                     this.X--;
                     break;
-
-                default:
-                    throw new InvalidEnumArgumentException(nameof(direction), (int) direction, typeof(CardinalDirection));
             }
 
             this.visitCurrentPosition();
