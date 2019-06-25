@@ -23,7 +23,7 @@ namespace RobotCleaner.Specs
 
             var output = this.runAndGetOutput();
 
-            output.Should().Be("=> Cleaned: 1\r\n");
+            output.Should().Be("=> Cleaned: 1\n");
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace RobotCleaner.Specs
 
             var output = this.runAndGetOutput();
 
-            output.Should().Be("=> Cleaned: 1\r\n");
+            output.Should().Be("=> Cleaned: 1\n");
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace RobotCleaner.Specs
 
             var output = this.runAndGetOutput();
 
-            output.Should().Be("=> Cleaned: 8\r\n");
+            output.Should().Be("=> Cleaned: 8\n");
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace RobotCleaner.Specs
 
             var output = this.runAndGetOutput();
 
-            output.Should().Be("=> Cleaned: 21\r\n");
+            output.Should().Be("=> Cleaned: 21\n");
         }
 
         private void initializeInput(string input)
@@ -64,7 +64,11 @@ namespace RobotCleaner.Specs
         private string runAndGetOutput()
         {
             Program.Main(this.stringReader, this.stringWriter);
-            return this.stringWriter.GetStringBuilder().ToString();
+
+            return this.stringWriter
+                       .GetStringBuilder()
+                       .ToString()
+                       .NormalizeCrlf();
         }
     }
 }
